@@ -60,12 +60,36 @@ class Service
             }
             }
 
-            print_r($arrayData);
+            return $arrayData;
         
-      
-
        }
 
+       public function calculateOverallPlacement() :array
+       {
+       $arrayData = $this->arrayData();
+       
+       
+       //initialiying new array
+       $racerData = array();
+
+        // iterate the field and access the same indexes from the other fields
+        for($i = 1; $i < count($arrayData); $i++) {
+            $racerData [$i] = [ 
+                //'fullName' => $arrayData[$i]['fullName'],
+                'distance' => $arrayData[$i]['distance'],
+                'time' => $arrayData[$i]['time'],
+                'ageCategory' => $arrayData[$i]['ageCategory'],
+                'overall_placement'=> $i
+                //$arrayData[$i]['distance'] = 'long' ? ('overall_placement'=> $i) : '';
+            ];
+        }
+         uasort($racerData, function($a, $b) {
+           return strtotime($a['time']) - strtotime($b['time']);
+       });
+        dd($racerData);
+        return $racerData;
+    
+   }
         function calculateAveragePlacement($arrayData)
         {
             $result = [];

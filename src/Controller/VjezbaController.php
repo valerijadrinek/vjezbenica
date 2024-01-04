@@ -13,8 +13,11 @@ class VjezbaController extends AbstractController
     #[Route('/', name: 'vjezba')]
     public function index(Service $service): Response
     {
+        $averageRacePlacement = $service->averageRacePlacement();
+       
+       $overallPlacement = $service->calculateOverallPlacement();
         return $this->render('vjezba/index.html.twig', [
-            'service_data' => $service,
+            'service_data' => print_r($overallPlacement),
         ]);
     }
 }
