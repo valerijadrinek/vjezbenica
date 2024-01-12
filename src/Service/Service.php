@@ -68,25 +68,26 @@ class Service
        {
        $arrayData = $this->arrayData();
        
-       
+       usort($arrayData, function($a, $b) {
+        return strtotime($a['time']) - strtotime($b['time']);
+    });
+    
        //initialiying new array
        $racerData = array();
 
         // iterate the field and access the same indexes from the other fields
-        for($i = 1; $i < count($arrayData); $i++) {
+        for($i = 0; $i < count($arrayData); $i++) {
             $racerData [$i] = [ 
                 //'fullName' => $arrayData[$i]['fullName'],
                 'distance' => $arrayData[$i]['distance'],
                 'time' => $arrayData[$i]['time'],
                 'ageCategory' => $arrayData[$i]['ageCategory'],
-                'overall_placement'=> $i
+                'overall_placement'=> $i + 1
                 //$arrayData[$i]['distance'] = 'long' ? ('overall_placement'=> $i) : '';
             ];
         }
-         uasort($racerData, function($a, $b) {
-           return strtotime($a['time']) - strtotime($b['time']);
-       });
-        dd($racerData);
+        
+    
         return $racerData;
     
    }
